@@ -1,0 +1,22 @@
+{
+  "application": "Axiom Worksheet",
+  "version": "0.1.0",
+  "releaseDate": "2026-09-06",
+  "sourceRevision": "623a4cefb166bfdb4cab5d708f4a825545dad92a",
+  "standaloneBytes": 230256,
+  "standaloneSHA256": "a35994b859c598628a25089cec5fa220c7f3504953af9237d4a8156b24e09062",
+  "nodeTests": {
+    "passed": 113,
+    "failed": 0
+  },
+  "browserTests": {
+    "passed": 38,
+    "failed": 0,
+    "uncaughtErrors": 0,
+    "mode": "http://localhost:8080/",
+    "backend": "canvas2d",
+    "browserWorkerStartupVerified": true,
+    "softwareGpuRequested": true,
+    "hardwarePerformanceVerified": false
+  }
+}

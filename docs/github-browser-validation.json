@@ -1,0 +1,213 @@
+{
+  "mode": "http://localhost:8080/",
+  "browser": "152.0.7977.0",
+  "diagnostics": {
+    "renderer": "canvas2d",
+    "rendererStatus": {
+      "mode": "canvas2d",
+      "description": "Canvas 2D fallback",
+      "reason": "GPU device lost: Device was destroyed."
+    },
+    "worker": true,
+    "calculationStale": false,
+    "duration": 20.20000000001164,
+    "errors": 0,
+    "cacheHits": 0,
+    "vertices": 0,
+    "drawCalls": 140
+  },
+  "tests": [
+    {
+      "test": "Application booted",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Initial document calculates without errors",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Beam tip deflection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Native MathML equations present",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Inline edit commits and propagates",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Undo restores source and dependencies",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Redo restores edited calculation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Escape cancels an edit",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Inspector converts output units",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Incompatible unit produces a visible error",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Undo recovers from a dimensional error",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Pointer dragging moves and snaps a region",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Pointer resizing changes region dimensions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Command palette opens matrix editor",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Matrix dialog inserts a real evaluated matrix",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Duplicate selection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Delete selection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Undo deletion",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Save serializes a portable v1 document",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "HTML report contains equations and vector plots",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "CSV export includes source and results",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Open round-trips the native document",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Numeric CSV import creates a matrix",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Imported text cannot inject HTML",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Numerical example evaluates without errors",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "LU solve sample is correct",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Numerical integration result",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Symbolic derivative is rendered",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Parameter slider updates its definition",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Parameter slider updates dependent plot samples",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "SVG export contains actual curve geometry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Manual mode marks edited results stale",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "F9 explicitly calculates in manual mode",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Zoom control updates the view",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Grid toggle updates view state",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Print CSS makes vector traces visible",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Small-screen layout hides side panels",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "No uncaught browser JavaScript exceptions",
+      "passed": true,
+      "details": []
+    }
+  ],
+  "uncaughtErrors": [],
+  "limitations": []
+}

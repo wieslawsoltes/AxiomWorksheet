@@ -8,6 +8,8 @@ This is a working initial implementation, **not complete Mathcad feature parity 
 
 ![Axiom Worksheet — cantilever beam example](docs/axiom-worksheet.png)
 
+**[Open the live application](https://wieslawsoltes.github.io/AxiomWorksheet/)** · [Publishing and CI](docs/PUBLISHING.md)
+
 ## Run immediately
 
 The supplied `index.html` is the complete, self-contained application. No build or package installation is required. For predictable origin, worker and storage behavior, serve the folder locally:
@@ -21,7 +23,7 @@ Open **http://localhost:8080/**. On Windows, `py -m http.server 8080 --bind 127.
 
 You can also open `index.html` directly. Browser restrictions on local files may disable workers or storage; Axiom provides computation and rendering fallbacks. WebGPU requires a supporting browser and a secure context; use localhost for development and HTTPS for hosting. The status bar reports the backend actually in use. `?renderer=canvas` explicitly selects the fallback. See the browser references at the end of this document.
 
-For static hosting, publish just `dist/index.html`. No server-side code is required. The app is supplied as files; it has not been deployed to a public hosting service.
+For static hosting, publish just `dist/index.html`. No server-side code is required. The repository is configured to publish to GitHub Pages through the build-and-publish workflow. Each deployment checks that the served HTML matches the validated build.
 
 ## What works
 
