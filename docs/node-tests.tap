@@ -1,0 +1,692 @@
+
+> axiom-worksheet@0.1.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: standalone bundle parses as a JavaScript module and matches dist
+ok 1 - standalone bundle parses as a JavaScript module and matches dist
+  ---
+  duration_ms: 41.026509
+  type: 'test'
+  ...
+# Subtest: beam calculates without errors
+ok 2 - beam calculates without errors
+  ---
+  duration_ms: 40.881961
+  type: 'test'
+  ...
+# Subtest: numerical sandbox calculates without errors
+ok 3 - numerical sandbox calculates without errors
+  ---
+  duration_ms: 16.839886
+  type: 'test'
+  ...
+# Subtest: blank calculates without errors
+ok 4 - blank calculates without errors
+  ---
+  duration_ms: 0.348715
+  type: 'test'
+  ...
+# Subtest: transactions undo and redo
+ok 5 - transactions undo and redo
+  ---
+  duration_ms: 5.326945
+  type: 'test'
+  ...
+# Subtest: transaction failure rolls back
+ok 6 - transaction failure rolls back
+  ---
+  duration_ms: 0.558802
+  type: 'test'
+  ...
+# Subtest: coalesced transaction
+ok 7 - coalesced transaction
+  ---
+  duration_ms: 0.326312
+  type: 'test'
+  ...
+# Subtest: undo creates redo branch
+ok 8 - undo creates redo branch
+  ---
+  duration_ms: 0.419181
+  type: 'test'
+  ...
+# Subtest: invalid document rejected
+ok 9 - invalid document rejected
+  ---
+  duration_ms: 0.380884
+  type: 'test'
+  ...
+# Subtest: duplicates rejected
+ok 10 - duplicates rejected
+  ---
+  duration_ms: 0.498431
+  type: 'test'
+  ...
+# Subtest: foreign images rejected
+ok 11 - foreign images rejected
+  ---
+  duration_ms: 0.846455
+  type: 'test'
+  ...
+# Subtest: SVG images rejected
+ok 12 - SVG images rejected
+  ---
+  duration_ms: 0.413263
+  type: 'test'
+  ...
+# Subtest: geometry clamped
+ok 13 - geometry clamped
+  ---
+  duration_ms: 0.200362
+  type: 'test'
+  ...
+# Subtest: 2+3*4
+ok 14 - 2+3*4
+  ---
+  duration_ms: 4.328521
+  type: 'test'
+  ...
+# Subtest: (2+3)*4
+ok 15 - (2+3)*4
+  ---
+  duration_ms: 0.423377
+  type: 'test'
+  ...
+# Subtest: 2^3^2
+ok 16 - 2^3^2
+  ---
+  duration_ms: 0.350578
+  type: 'test'
+  ...
+# Subtest: -2^2
+ok 17 - -2^2
+  ---
+  duration_ms: 0.178018
+  type: 'test'
+  ...
+# Subtest: (-2)^2
+ok 18 - (-2)^2
+  ---
+  duration_ms: 0.220222
+  type: 'test'
+  ...
+# Subtest: 2^-3
+ok 19 - 2^-3
+  ---
+  duration_ms: 0.147672
+  type: 'test'
+  ...
+# Subtest: 2pi
+ok 20 - 2pi
+  ---
+  duration_ms: 0.334574
+  type: 'test'
+  ...
+# Subtest: 3(2+4)
+ok 21 - 3(2+4)
+  ---
+  duration_ms: 0.155144
+  type: 'test'
+  ...
+# Subtest: 6!
+ok 22 - 6!
+  ---
+  duration_ms: 0.555127
+  type: 'test'
+  ...
+# Subtest: 2e3 + .5
+ok 23 - 2e3 + .5
+  ---
+  duration_ms: 0.450769
+  type: 'test'
+  ...
+# Subtest: sin(30 deg)
+ok 24 - sin(30 deg)
+  ---
+  duration_ms: 0.256707
+  type: 'test'
+  ...
+# Subtest: cos(pi)
+ok 25 - cos(pi)
+  ---
+  duration_ms: 0.200432
+  type: 'test'
+  ...
+# Subtest: ln(exp(3))
+ok 26 - ln(exp(3))
+  ---
+  duration_ms: 0.17238
+  type: 'test'
+  ...
+# Subtest: sqrt(81)
+ok 27 - sqrt(81)
+  ---
+  duration_ms: 0.116185
+  type: 'test'
+  ...
+# Subtest: abs(-4)
+ok 28 - abs(-4)
+  ---
+  duration_ms: 0.099189
+  type: 'test'
+  ...
+# Subtest: round(2.6)
+ok 29 - round(2.6)
+  ---
+  duration_ms: 0.145869
+  type: 'test'
+  ...
+# Subtest: if(2>1,42,1/0)
+ok 30 - if(2>1,42,1/0)
+  ---
+  duration_ms: 0.132049
+  type: 'test'
+  ...
+# Subtest: mean([1,2,3,4])
+ok 31 - mean([1,2,3,4])
+  ---
+  duration_ms: 0.621206
+  type: 'test'
+  ...
+# Subtest: median([1,9,3,4])
+ok 32 - median([1,9,3,4])
+  ---
+  duration_ms: 0.196286
+  type: 'test'
+  ...
+# Subtest: stdev([1,2,3])
+ok 33 - stdev([1,2,3])
+  ---
+  duration_ms: 0.15925
+  type: 'test'
+  ...
+# Subtest: sum(1..10)
+ok 34 - sum(1..10)
+  ---
+  duration_ms: 0.23181
+  type: 'test'
+  ...
+# Subtest: sum(range(0,1,.1))
+ok 35 - sum(range(0,1,.1))
+  ---
+  duration_ms: 0.210918
+  type: 'test'
+  ...
+# Subtest: prod([1,2,3,4])
+ok 36 - prod([1,2,3,4])
+  ---
+  duration_ms: 0.128344
+  type: 'test'
+  ...
+# Subtest: [10,20,30][1]
+ok 37 - [10,20,30][1]
+  ---
+  duration_ms: 0.178789
+  type: 'test'
+  ...
+# Subtest: [1,2;3,4][1,0]
+ok 38 - [1,2;3,4][1,0]
+  ---
+  duration_ms: 1.608393
+  type: 'test'
+  ...
+# Subtest: dot([1,2,3],[4,5,6])
+ok 39 - dot([1,2,3],[4,5,6])
+  ---
+  duration_ms: 0.390218
+  type: 'test'
+  ...
+# Subtest: norm([3,4])
+ok 40 - norm([3,4])
+  ---
+  duration_ms: 0.117868
+  type: 'test'
+  ...
+# Subtest: det([1,2;3,4])
+ok 41 - det([1,2;3,4])
+  ---
+  duration_ms: 0.850431
+  type: 'test'
+  ...
+# Subtest: det([0,2;3,4])
+ok 42 - det([0,2;3,4])
+  ---
+  duration_ms: 0.150506
+  type: 'test'
+  ...
+# Subtest: det([1,2;2,4])
+ok 43 - det([1,2;2,4])
+  ---
+  duration_ms: 0.253192
+  type: 'test'
+  ...
+# Subtest: rows(eye(3))
+ok 44 - rows(eye(3))
+  ---
+  duration_ms: 0.204788
+  type: 'test'
+  ...
+# Subtest: cols(zeros(2,4))
+ok 45 - cols(zeros(2,4))
+  ---
+  duration_ms: 0.13276
+  type: 'test'
+  ...
+# Subtest: atan2(1 m,1 m)
+ok 46 - atan2(1 m,1 m)
+  ---
+  duration_ms: 2.226494
+  type: 'test'
+  ...
+# Subtest: integrate(sin(x),x,0,pi)
+ok 47 - integrate(sin(x),x,0,pi)
+  ---
+  duration_ms: 2.415158
+  type: 'test'
+  ...
+# Subtest: integrate(x^2,x,0,3)
+ok 48 - integrate(x^2,x,0,3)
+  ---
+  duration_ms: 0.163867
+  type: 'test'
+  ...
+# Subtest: integrate(exp(x),x,1,0)
+ok 49 - integrate(exp(x),x,1,0)
+  ---
+  duration_ms: 0.667515
+  type: 'test'
+  ...
+# Subtest: root(x^2-2,x,0,2)
+ok 50 - root(x^2-2,x,0,2)
+  ---
+  duration_ms: 0.540794
+  type: 'test'
+  ...
+# Subtest: root(x,x,0,2)
+ok 51 - root(x,x,0,2)
+  ---
+  duration_ms: 0.10622
+  type: 'test'
+  ...
+# Subtest: deriv(sin(x),x,0)
+ok 52 - deriv(sin(x),x,0)
+  ---
+  duration_ms: 0.114282
+  type: 'test'
+  ...
+# Subtest: quantity conversion
+ok 53 - quantity conversion
+  ---
+  duration_ms: 0.406011
+  type: 'test'
+  ...
+# Subtest: derived dimensional conversion
+ok 54 - derived dimensional conversion
+  ---
+  duration_ms: 0.224378
+  type: 'test'
+  ...
+# Subtest: fractional dimensional power
+ok 55 - fractional dimensional power
+  ---
+  duration_ms: 0.187242
+  type: 'test'
+  ...
+# Subtest: dimensioned numerical integration
+ok 56 - dimensioned numerical integration
+  ---
+  duration_ms: 0.171428
+  type: 'test'
+  ...
+# Subtest: dimensioned root
+ok 57 - dimensioned root
+  ---
+  duration_ms: 0.655066
+  type: 'test'
+  ...
+# Subtest: matrix product
+ok 58 - matrix product
+  ---
+  duration_ms: 0.864241
+  type: 'test'
+  ...
+# Subtest: matrix inverse
+ok 59 - matrix inverse
+  ---
+  duration_ms: 0.402747
+  type: 'test'
+  ...
+# Subtest: pivoted linear solve
+ok 60 - pivoted linear solve
+  ---
+  duration_ms: 0.220302
+  type: 'test'
+  ...
+# Subtest: scaled tiny nonsingular matrix
+ok 61 - scaled tiny nonsingular matrix
+  ---
+  duration_ms: 0.148704
+  type: 'test'
+  ...
+# Subtest: dimensioned linear solve
+ok 62 - dimensioned linear solve
+  ---
+  duration_ms: 0.42494
+  type: 'test'
+  ...
+# Subtest: transpose postfix
+ok 63 - transpose postfix
+  ---
+  duration_ms: 0.234443
+  type: 'test'
+  ...
+# Subtest: vectorized trigonometry
+ok 64 - vectorized trigonometry
+  ---
+  duration_ms: 0.142625
+  type: 'test'
+  ...
+# Subtest: elementwise powers
+ok 65 - elementwise powers
+  ---
+  duration_ms: 0.216627
+  type: 'test'
+  ...
+# Subtest: symbolic derivative evaluates correctly
+ok 66 - symbolic derivative evaluates correctly
+  ---
+  duration_ms: 0.629488
+  type: 'test'
+  ...
+# Subtest: symbolic quotient and chain rules
+ok 67 - symbolic quotient and chain rules
+  ---
+  duration_ms: 0.393703
+  type: 'test'
+  ...
+# Subtest: source-unit conversion operator
+ok 68 - source-unit conversion operator
+  ---
+  duration_ms: 0.158619
+  type: 'test'
+  ...
+# Subtest: functions capture definition-time environment
+ok 69 - functions capture definition-time environment
+  ---
+  duration_ms: 0.243887
+  type: 'test'
+  ...
+# Subtest: reject 1 m+1 s
+ok 70 - reject 1 m+1 s
+  ---
+  duration_ms: 0.578802
+  type: 'test'
+  ...
+# Subtest: reject sin(2 m)
+ok 71 - reject sin(2 m)
+  ---
+  duration_ms: 0.140752
+  type: 'test'
+  ...
+# Subtest: reject 1/0
+ok 72 - reject 1/0
+  ---
+  duration_ms: 0.105418
+  type: 'test'
+  ...
+# Subtest: reject sqrt(-1)
+ok 73 - reject sqrt(-1)
+  ---
+  duration_ms: 0.180572
+  type: 'test'
+  ...
+# Subtest: reject unknown+1
+ok 74 - reject unknown+1
+  ---
+  duration_ms: 0.094742
+  type: 'test'
+  ...
+# Subtest: reject [1,2;3]
+ok 75 - reject [1,2;3]
+  ---
+  duration_ms: 0.093781
+  type: 'test'
+  ...
+# Subtest: reject inv([1,2;2,4])
+ok 76 - reject inv([1,2;2,4])
+  ---
+  duration_ms: 0.207883
+  type: 'test'
+  ...
+# Subtest: reject root(x^2+1,x,-1,1)
+ok 77 - reject root(x^2+1,x,-1,1)
+  ---
+  duration_ms: 0.153601
+  type: 'test'
+  ...
+# Subtest: reject range(0,1,0)
+ok 78 - reject range(0,1,0)
+  ---
+  duration_ms: 0.220933
+  type: 'test'
+  ...
+# Subtest: reject range(0,100000)
+ok 79 - reject range(0,100000)
+  ---
+  duration_ms: 0.148834
+  type: 'test'
+  ...
+# Subtest: reject [1,2][9]
+ok 80 - reject [1,2][9]
+  ---
+  duration_ms: 0.115954
+  type: 'test'
+  ...
+# Subtest: reject sin()
+ok 81 - reject sin()
+  ---
+  duration_ms: 0.098569
+  type: 'test'
+  ...
+# Subtest: reject a.constructor(1)
+ok 82 - reject a.constructor(1)
+  ---
+  duration_ms: 0.130427
+  type: 'test'
+  ...
+# Subtest: reject f(x,x):=x
+ok 83 - reject f(x,x):=x
+  ---
+  duration_ms: 0.110406
+  type: 'test'
+  ...
+# Subtest: reject 1 m < 2 s
+ok 84 - reject 1 m < 2 s
+  ---
+  duration_ms: 0.114713
+  type: 'test'
+  ...
+# Subtest: MathML escapes identifiers
+ok 85 - MathML escapes identifiers
+  ---
+  duration_ms: 0.359201
+  type: 'test'
+  ...
+# Subtest: worksheet order and incremental invalidation
+ok 86 - worksheet order and incremental invalidation
+  ---
+  duration_ms: 2.494627
+  type: 'test'
+  ...
+# Subtest: invalid definitions do not leave stale downstream values
+ok 87 - invalid definitions do not leave stale downstream values
+  ---
+  duration_ms: 0.398461
+  type: 'test'
+  ...
+# Subtest: function invalidation follows captured dependencies
+ok 88 - function invalidation follows captured dependencies
+  ---
+  duration_ms: 0.481996
+  type: 'test'
+  ...
+# Subtest: reading order is page, y, then x
+ok 89 - reading order is page, y, then x
+  ---
+  duration_ms: 0.202906
+  type: 'test'
+  ...
+# Subtest: plot sample units
+ok 90 - plot sample units
+  ---
+  duration_ms: 3.497658
+  type: 'test'
+  ...
+# Subtest: beam physical result
+ok 91 - beam physical result
+  ---
+  duration_ms: 0.27901
+  type: 'test'
+  ...
+# Subtest: reject discontinuous root bracket
+ok 92 - reject discontinuous root bracket
+  ---
+  duration_ms: 0.178709
+  type: 'test'
+  ...
+# Subtest: dimensioned derivative with explicit step
+ok 93 - dimensioned derivative with explicit step
+  ---
+  duration_ms: 0.115333
+  type: 'test'
+  ...
+# Subtest: syntax-invalid shadowing definitions block downstream evaluation
+ok 94 - syntax-invalid shadowing definitions block downstream evaluation
+  ---
+  duration_ms: 0.661577
+  type: 'test'
+  ...
+# Subtest: reversed plot y bounds rejected
+ok 95 - reversed plot y bounds rejected
+  ---
+  duration_ms: 0.818833
+  type: 'test'
+  ...
+# Subtest: plot results are dependency cached
+ok 96 - plot results are dependency cached
+  ---
+  duration_ms: 3.343686
+  type: 'test'
+  ...
+# Subtest: symbolic expression budgets are enforced
+ok 97 - symbolic expression budgets are enforced
+  ---
+  duration_ms: 0.175484
+  type: 'test'
+  ...
+# Subtest: invalid slider definitions poison downstream shadowed values
+ok 98 - invalid slider definitions poison downstream shadowed values
+  ---
+  duration_ms: 0.414064
+  type: 'test'
+  ...
+# Subtest: clipping preserves contained segments
+ok 99 - clipping preserves contained segments
+  ---
+  duration_ms: 2.085612
+  type: 'test'
+  ...
+# Subtest: clipping rejects external parallel segments
+ok 100 - clipping rejects external parallel segments
+  ---
+  duration_ms: 0.202865
+  type: 'test'
+  ...
+# Subtest: clipping handles two opposite intersections
+ok 101 - clipping handles two opposite intersections
+  ---
+  duration_ms: 0.096666
+  type: 'test'
+  ...
+# Subtest: clipping handles vertical intersections
+ok 102 - clipping handles vertical intersections
+  ---
+  duration_ms: 0.089514
+  type: 'test'
+  ...
+# Subtest: clipping preserves boundary edges
+ok 103 - clipping preserves boundary edges
+  ---
+  duration_ms: 0.169215
+  type: 'test'
+  ...
+# Subtest: clipping handles degenerate contained points
+ok 104 - clipping handles degenerate contained points
+  ---
+  duration_ms: 0.107632
+  type: 'test'
+  ...
+# Subtest: clipping rejects disjoint corners
+ok 105 - clipping rejects disjoint corners
+  ---
+  duration_ms: 0.07946
+  type: 'test'
+  ...
+# Subtest: rectangle meshes use two triangles and a 24-byte stride
+ok 106 - rectangle meshes use two triangles and a 24-byte stride
+  ---
+  duration_ms: 0.380383
+  type: 'test'
+  ...
+# Subtest: line mesh contains opaque core and transparent feather vertices
+ok 107 - line mesh contains opaque core and transparent feather vertices
+  ---
+  duration_ms: 0.450699
+  type: 'test'
+  ...
+# Subtest: mesh skips degenerate primitives
+ok 108 - mesh skips degenerate primitives
+  ---
+  duration_ms: 0.377358
+  type: 'test'
+  ...
+# Subtest: mesh buffer grows geometrically without losing earlier vertices
+ok 109 - mesh buffer grows geometrically without losing earlier vertices
+  ---
+  duration_ms: 4.863235
+  type: 'test'
+  ...
+# Subtest: mesh reset reuses allocated memory
+ok 110 - mesh reset reuses allocated memory
+  ---
+  duration_ms: 0.154663
+  type: 'test'
+  ...
+# Subtest: worker returns cloneable quantities, user functions, and plot samples
+ok 111 - worker returns cloneable quantities, user functions, and plot samples
+  ---
+  duration_ms: 56.95299
+  type: 'test'
+  ...
+# Subtest: worker preserves its incremental cache between messages
+ok 112 - worker preserves its incremental cache between messages
+  ---
+  duration_ms: 68.458084
+  type: 'test'
+  ...
+# Subtest: worker serializes fatal failures instead of throwing across the channel
+ok 113 - worker serializes fatal failures instead of throwing across the channel
+  ---
+  duration_ms: 61.739799
+  type: 'test'
+  ...
+1..113
+# tests 113
+# suites 0
+# pass 113
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 388.145054

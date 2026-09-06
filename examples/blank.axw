@@ -1,0 +1,59 @@
+{
+  "format": "axiom-worksheet",
+  "version": 1,
+  "name": "Untitled worksheet",
+  "precision": 5,
+  "pages": 1,
+  "regions": [
+    {
+      "id": "83f20a92-289c-4d81-9ee7-e27949fff9df",
+      "type": "text",
+      "page": 0,
+      "x": 60,
+      "y": 70,
+      "w": 780,
+      "h": 60,
+      "label": "",
+      "source": "",
+      "precision": 5,
+      "outputUnit": "",
+      "text": "Untitled worksheet",
+      "style": "title",
+      "color": "default"
+    },
+    {
+      "id": "856515da-16af-48e1-aa65-64e3b76bf1ae",
+      "type": "text",
+      "page": 0,
+      "x": 60,
+      "y": 145,
+      "w": 780,
+      "h": 42,
+      "label": "",
+      "source": "",
+      "precision": 5,
+      "outputUnit": "",
+      "text": "Your engineering calculations, clearly documented.",
+      "style": "subtitle",
+      "color": "default"
+    },
+    {
+      "id": "first-calculation",
+      "type": "math",
+      "page": 0,
+      "x": 60,
+      "y": 240,
+      "w": 360,
+      "h": 76,
+      "label": "Start calculating",
+      "source": "a := 10",
+      "precision": 5,
+      "outputUnit": "",
+      "text": "",
+      "style": "body",
+      "color": "default"
+    }
+  ],
+  "created": "2026-09-06T11:22:34.446Z",
+  "modified": "2026-09-06T11:22:34.446Z"
+}
