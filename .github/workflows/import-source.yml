@@ -1,0 +1,52 @@
+name: Import verified Axiom Worksheet source
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.bootstrap/ready.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: source-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.repository == 'wieslawsoltes/AxiomWorksheet'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify and extract source archive
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, io, json, lzma, pathlib, tarfile
+          root = pathlib.Path.cwd()
+          manifest = json.loads((root / '.bootstrap/ready.json').read_text())
+          encoded = ''.join((root / '.bootstrap' / name).read_text().strip() for name in manifest['parts'])
+          archive = base64.b64decode(encoded, validate=True)
+          assert hashlib.sha256(archive).hexdigest() == manifest['sha256'], 'Source archive checksum mismatch'
+          with tarfile.open(fileobj=io.BytesIO(lzma.decompress(archive)), mode='r:') as tar:
+              for member in tar.getmembers():
+                  path = pathlib.PurePosixPath(member.name)
+                  assert not path.is_absolute() and '..' not in path.parts, 'Unsafe archive path'
+                  assert member.isfile() and '.git' not in path.parts and '.github' not in path.parts, 'Unexpected archive entry'
+              tar.extractall(root, filter='data')
+          PY
+      - name: Build and run the complete Node test suite
+        run: npm run validate
+      - name: Commit application source and standalone build
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src tests docs examples index.html dist build.mjs package.json README.md LICENSE .gitignore start.sh start.cmd
+          git diff --cached --quiet || git commit -m 'feat: add Axiom Worksheet numerical engine, editor, rendering, examples and tests'
+          git push origin HEAD:main
