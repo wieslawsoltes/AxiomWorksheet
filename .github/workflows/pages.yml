@@ -1,0 +1,132 @@
+name: Build and publish GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: axiom-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      build_type: ${{ steps.site.outputs.build_type }}
+      site_url: ${{ steps.site.outputs.site_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and run all Node tests
+        run: npm run validate
+      - name: Prepare the static site
+        run: |
+          touch dist/.nojekyll
+          cp -r examples dist/examples
+          printf '%s\n' "$GITHUB_SHA" > dist/version.txt
+      - name: Read Pages publishing configuration
+        id: site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/pages" > "$RUNNER_TEMP/pages.json"
+          cat "$RUNNER_TEMP/pages.json"
+          echo "build_type=$(jq -r '.build_type // "legacy"' "$RUNNER_TEMP/pages.json")" >> "$GITHUB_OUTPUT"
+          echo "site_url=$(jq -r '.html_url' "$RUNNER_TEMP/pages.json")" >> "$GITHUB_OUTPUT"
+          if [ "$(jq -r '.build_type // "legacy"' "$RUNNER_TEMP/pages.json")" = legacy ]; then
+            test "$(jq -r '.source.branch' "$RUNNER_TEMP/pages.json")" = gh-pages
+            test "$(jq -r '.source.path' "$RUNNER_TEMP/pages.json")" = /
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy-actions:
+    if: needs.build.outputs.build_type == 'workflow'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-branch:
+    if: needs.build.outputs.build_type == 'legacy'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+      - uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: artifact
+      - name: Update the publishing branch without rewriting history
+        run: |
+          mkdir published
+          tar -xf artifact/artifact.tar -C published
+          rsync -a --delete --exclude=.git published/ site/
+          cd site
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet || git commit -m "deploy: Axiom Worksheet from $GITHUB_SHA"
+          git push origin HEAD:gh-pages
+      - name: Explicitly request a Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
+
+  verify:
+    if: always() && needs.build.result == 'success' && (needs.deploy-actions.result == 'success' || needs.deploy-branch.result == 'success')
+    needs: [build, deploy-actions, deploy-branch]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: artifact
+      - name: Verify the published HTTPS application byte-for-byte
+        env:
+          SITE_URL: ${{ needs.build.outputs.site_url }}
+        run: |
+          mkdir expected
+          tar -xf artifact/artifact.tar -C expected
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location --max-time 20 "${SITE_URL%/}/?build=$GITHUB_SHA" -o served.html && cmp --silent expected/index.html served.html; then
+              echo "Verified deployed HTML: $(sha256sum served.html)"
+              echo "### Published Axiom Worksheet" >> "$GITHUB_STEP_SUMMARY"
+              echo "[$SITE_URL]($SITE_URL)" >> "$GITHUB_STEP_SUMMARY"
+              echo "Source revision: $GITHUB_SHA. Published HTML matches the validated build byte-for-byte." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'The live site did not match the validated build before the verification timeout.' >&2
+          exit 1
