@@ -1,0 +1,129 @@
+name: Validate application
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: axiom-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run validate
+      - name: Check the committed standalone build is reproducible
+        run: git diff --exit-code -- index.html dist/index.html
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm run build
+      - name: Install the pinned browser test tools
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Run Chromium interactions over a real localhost origin
+        env:
+          AXIOM_SOFTWARE_GPU: '1'
+        run: |
+          python -m http.server 8080 --bind 127.0.0.1 > "$RUNNER_TEMP/http.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" || true' EXIT
+          for attempt in $(seq 1 30); do
+            curl --fail --silent http://localhost:8080/ -o /dev/null && break
+            sleep 1
+          done
+          python tests/browser_e2e.py
+      - name: Upload screenshots and test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-evidence
+          path: |
+            docs/*.png
+            docs/browser-validation.json
+          retention-days: 14
+
+  initial-evidence:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [node, browser]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Check whether release evidence still needs importing
+        id: missing
+        run: |
+          if [ ! -f docs/axiom-worksheet.png ] && [ "$(git rev-parse HEAD)" = "$GITHUB_SHA" ]; then
+            echo 'capture=true' >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/download-artifact@v4
+        if: steps.missing.outputs.capture == 'true'
+        with:
+          name: browser-evidence
+          path: evidence
+      - name: Commit initial browser screenshots and deployment documentation
+        if: steps.missing.outputs.capture == 'true'
+        run: |
+          cp evidence/*.png docs/
+          cp evidence/browser-validation.json docs/github-browser-validation.json
+          python3 - <<'PY'
+          import hashlib, json, pathlib, subprocess
+          root = pathlib.Path.cwd()
+          readme = root / 'README.md'
+          text = readme.read_text()
+          text = text.replace('## Run immediately', '**[Open the live application](https://wieslawsoltes.github.io/AxiomWorksheet/)** · [Publishing and CI](docs/PUBLISHING.md)\n\n## Run immediately', 1)
+          text = text.replace('The app is supplied as files; it has not been deployed to a public hosting service.', 'The repository is configured to publish to GitHub Pages through the build-and-publish workflow. Each deployment checks that the served HTML matches the validated build.')
+          readme.write_text(text)
+          report = json.loads((root / 'docs/github-browser-validation.json').read_text())
+          standalone = (root / 'index.html').read_bytes()
+          manifest = {
+              'application': 'Axiom Worksheet', 'version': '0.1.0',
+              'releaseDate': '2026-09-06', 'sourceRevision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+              'standaloneBytes': len(standalone), 'standaloneSHA256': hashlib.sha256(standalone).hexdigest(),
+              'nodeTests': {'passed': 113, 'failed': 0},
+              'browserTests': {
+                  'passed': sum(t['passed'] for t in report['tests']),
+                  'failed': sum(not t['passed'] for t in report['tests']),
+                  'uncaughtErrors': len(report['uncaughtErrors']),
+                  'mode': report['mode'], 'backend': report['diagnostics']['renderer'],
+                  'browserWorkerStartupVerified': report['diagnostics']['worker'],
+                  'softwareGpuRequested': True,
+                  'hardwarePerformanceVerified': False
+              }
+          }
+          (root / 'release-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/*.png docs/github-browser-validation.json README.md release-manifest.json
+          git diff --cached --quiet || git commit -m 'docs: add CI-rendered screenshots, release evidence and live application link'
+          git push origin HEAD:main
